@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,298 +5,328 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rethinking Music Tokenization: A Semantic Codec for High-Fidelity LLM Music Generation</title>
 
-  <!-- Bulma (same vibe as sac-codec demo pages) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <!-- Hero -->
-  <section class="hero is-white">
+  <section class="hero is-white hero-musec">
     <div class="hero-body">
       <div class="container is-max-desktop has-text-centered">
+        <p class="eyebrow">Anonymous Submission to Interspeech 2026</p>
         <h1 class="title is-2 paper-title">
-            Rethinking Music Tokenization: A Semantic Codec for High-Fidelity LLM Music Generation
+          Rethinking Music Tokenization: A Semantic Codec for High-Fidelity LLM Music Generation
         </h1>
+        <p class="subtitle is-5 subtitle-musec">
+          MuSeC is a reconstruction-oriented <b>music semantic codec</b> that disentangles semantic and acoustic content
+          directly from mixed music, improving both reconstruction quality and LM-friendliness.
+        </p>
 
         <div class="authors is-size-5">
           <span class="author-block">Anonymous Authors</span>
         </div>
 
-        <div class="buttons is-centered mt-4 is-flex-wrap-wrap">
-          <!-- 你可以替换成真实链接 -->
-          <a class="button is-dark is-rounded" href="#" target="_blank" rel="noopener noreferrer">
+        <div class="buttons is-centered mt-5 is-flex-wrap-wrap project-links">
+          <a class="button is-dark is-rounded" href="#" rel="noopener noreferrer">
             <span class="icon">📄</span><span>Paper</span>
           </a>
-          <a class="button is-link is-rounded" href="#" target="_blank" rel="noopener noreferrer">
-            <span class="icon">💻</span><span>Code</span>
+          <a class="button is-light is-rounded is-disabled" href="javascript:void(0)" aria-disabled="true">
+            <span class="icon">💻</span><span>Code</span><span class="coming-soon">Coming soon</span>
           </a>
-          <a class="button is-info is-rounded" href="#" target="_blank" rel="noopener noreferrer">
-            <span class="icon">🤗</span><span>Models</span>
+          <a class="button is-light is-rounded is-disabled" href="javascript:void(0)" aria-disabled="true">
+            <span class="icon">🤗</span><span>Models</span><span class="coming-soon">Coming soon</span>
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Figure -->
   <section class="section pt-0">
     <div class="container is-max-desktop">
-      <div class="box figure-box">
+      <div class="box figure-box shadow-soft">
         <figure class="image">
-          <!-- 把结构图放这里 -->
-          <img src="assets/figs/musec_arch.png" alt="MuSeC Architecture">
+          <img src="assets/figs/musec_model.png" alt="MuSeC Architecture">
         </figure>
-        <p class="caption mt-3">
-          <b>Figure 1:</b> Overview of MuSeC. A frozen SSL encoder + k-means provides semantic tokens; an acoustic RVQ stream
-          captures fine-grained acoustics. The two streams are concatenated and decoded for high-fidelity reconstruction.
+        <p class="caption mt-4">
+          <b>Figure 2.</b> Overview of MuSeC. A frozen SSL encoder + k-means provides semantic tokens; an acoustic RVQ stream captures
+          fine-grained acoustics. The two streams are concatenated and decoded for high-fidelity reconstruction.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Abstract -->
   <section class="section pt-0">
     <div class="container is-max-desktop">
-      <h2 class="title is-4">Abstract</h2>
-      <div class="content abstract">
-        <p>
-          Discrete audio tokenization is the critical interface between raw waveforms and autoregressive modeling in modern
-          music generation, yet music exposes a persistent tension between high-fidelity reconstruction and language-model
-          predictability. Existing reconstruction-oriented tokenizers often entangle musically salient structure with
-          fine-grained acoustic content, producing high-entropy sequences that hinder long-range modeling, while semantic
-          alternatives often rely on speech-derived priors or generation-focused decoders.
+      <div class="box info-box shadow-soft">
+        <div class="columns is-variable is-6 is-vcentered">
+          <div class="column is-12">
+            <h2 class="title is-4 section-title">Abstract</h2>
+            <div class="content abstract">
+              <p>
+                Discrete audio tokenization is the critical interface between raw waveforms and autoregressive modeling in modern music generation,
+                but music tokenizers must simultaneously preserve <b>high-fidelity reconstruction</b> and produce discrete sequences that remain
+                <b>amenable to language modeling</b>.
+              </p>
+              <p>
+                MuSeC addresses this trade-off by explicitly disentangling <b>music semantic content</b> and <b>music acoustic content</b> within mixed
+                music signals, without source separation. A frozen SSL encoder with k-means supplies semantic tokens, while an acoustic RVQ stream
+                captures residual detail for faithful reconstruction.
+              </p>
+              <p>
+                Empirically, MuSeC achieves stronger overall balance across content preservation, LM friendliness, and reconstruction quality,
+                providing a practical foundation for high-fidelity LLM music generation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pt-2">
+    <div class="container is-max-desktop">
+      <div class="section-header">
+        <p class="section-label">Listening Demos</p>
+        <h2 class="title is-4 mb-2">Model Comparison</h2>
+        <p class="content is-size-6 section-desc">
+          Side-by-side comparisons among Ground Truth, MuCodec-LeVo, XCodec-YuE, MuSeC-S1A8 <span class="inline-tag">1 semantic + 8 acoustic</span>,
+          and MuSeC-S1A16 <span class="inline-tag">1 semantic + 16 acoustic</span>.
         </p>
+      </div>
+
+      <div class="box note-box shadow-soft mb-5">
         <p>
-          We propose <b>MuSeC</b>, a reconstruction-oriented <b>music semantic codec</b> that disentangles
-          music semantic content and music acoustic content directly in mixed signals without stem separation, yielding
-          discrete units that remain faithful to the input while becoming more amenable to language modeling.
-          MuSeC improves reconstruction quality and significantly reduces language-model perplexity, enabling
-          high-fidelity LLM music generation.
+          <b>Copyright note.</b> The <b>short_*</b> samples are 15-second reconstructions of real songs for research demonstration.
+          The <b>full_*</b> samples are complete copyright-safe tracks generated with Suno and then reconstructed by different codecs.
         </p>
       </div>
-    </div>
-  </section>
 
-  <!-- Demo: High-bitrate reconstruction -->
-  <section class="section pt-2">
-    <div class="container is-max-desktop">
-      <h2 class="title is-4">High-Bitrate Music Reconstruction Samples</h2>
-      <p class="content is-size-6">
-        Table 1: High-bitrate reconstruction comparisons. Replace audio paths with your real samples.
-      </p>
-
-      <div class="table-container">
-        <table class="table is-striped is-hoverable is-fullwidth demo-table">
-          <thead>
-            <tr>
-              <th>Sample</th>
-              <th>Ground Truth</th>
-              <th>MuSeC</th>
-              <th>XCodec-YuE</th>
-              <th>MuCodec-LeVo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- sample1 -->
-            <tr>
-              <td><b>sample1</b></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample1_gt.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample1_musec.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample1_xcodec_yue.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample1_mucodec_levo.wav"></audio></td>
-            </tr>
-            <!-- sample2 -->
-            <tr>
-              <td><b>sample2</b></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample2_gt.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample2_musec.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample2_xcodec_yue.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample2_mucodec_levo.wav"></audio></td>
-            </tr>
-            <!-- sample3 -->
-            <tr>
-              <td><b>sample3</b></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample3_gt.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample3_musec.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample3_xcodec_yue.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/high_bitrate/sample3_mucodec_levo.wav"></audio></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="box demo-box shadow-soft">
+        <div class="table-container">
+          <table class="table is-fullwidth is-hoverable demo-table" id="comparison-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Demo: Low-bitrate reconstruction -->
   <section class="section pt-2">
     <div class="container is-max-desktop">
-      <h2 class="title is-4">Low-Bitrate Music Reconstruction Samples</h2>
-      <p class="content is-size-6">
-        Table 2: Low-bitrate reconstruction comparisons.
-      </p>
+      <div class="section-header">
+        <p class="section-label">Ablation Study</p>
+        <h2 class="title is-4 mb-2">Effect of Semantic Tokens and Acoustic Streams</h2>
+        <p class="content is-size-6 section-desc">
+          Full MuSeC versus ablated variants. MuSeC-S0A16 <span class="inline-tag">semantic branch kept, semantic tokens disabled</span>
+          and MuSeC-A16 <span class="inline-tag">semantic branch removed</span>.
+        </p>
+      </div>
 
-      <div class="table-container">
-        <table class="table is-striped is-hoverable is-fullwidth demo-table">
-          <thead>
-            <tr>
-              <th>Sample</th>
-              <th>Ground Truth</th>
-              <th>MuSeC</th>
-              <th>Baseline A</th>
-              <th>Baseline B</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>sample1</b></td>
-              <td><audio controls preload="none" src="assets/audio/low_bitrate/sample1_gt.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/low_bitrate/sample1_musec.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/low_bitrate/sample1_baseA.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/low_bitrate/sample1_baseB.wav"></audio></td>
-            </tr>
-            <tr>
-              <td><b>sample2</b></td>
-              <td><audio controls preload="none" src="assets/audio/low_bitrate/sample2_gt.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/low_bitrate/sample2_musec.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/low_bitrate/sample2_baseA.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/low_bitrate/sample2_baseB.wav"></audio></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="box demo-box shadow-soft">
+        <div class="table-container">
+          <table class="table is-fullwidth is-hoverable demo-table" id="ablation-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Disentanglement -->
   <section class="section pt-2">
     <div class="container is-max-desktop">
-      <h2 class="title is-4">Semantic / Acoustic Disentanglement Examples</h2>
-      <p class="content is-size-6">
-        Table 3: “Full” uses both semantic+acoustic streams; “Semantic-only” reconstructs with semantic tokens only (or a
-        semantic-dominant configuration), illustrating disentanglement.
-      </p>
+      <div class="section-header">
+        <p class="section-label">Results from the Paper</p>
+        <h2 class="title is-4 mb-2">Main Evaluation Results</h2>
+        <p class="content is-size-6 section-desc">
+          Summary across content preservation, LM friendliness, and reconstruction quality.
+        </p>
+      </div>
 
-      <div class="table-container">
-        <table class="table is-striped is-hoverable is-fullwidth demo-table">
-          <thead>
-            <tr>
-              <th>Sample</th>
-              <th>Ground Truth</th>
-              <th>MuSeC-Full</th>
-              <th>MuSeC-Semantic-only</th>
-              <th>Baseline Semantic-only</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>sample1</b></td>
-              <td><audio controls preload="none" src="assets/audio/disentangle/sample1_gt.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/disentangle/sample1_musec_full.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/disentangle/sample1_musec_sem.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/disentangle/sample1_base_sem.wav"></audio></td>
-            </tr>
-            <tr>
-              <td><b>sample2</b></td>
-              <td><audio controls preload="none" src="assets/audio/disentangle/sample2_gt.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/disentangle/sample2_musec_full.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/disentangle/sample2_musec_sem.wav"></audio></td>
-              <td><audio controls preload="none" src="assets/audio/disentangle/sample2_base_sem.wav"></audio></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="box results-box shadow-soft mb-5">
+        <div class="table-container">
+          <table class="table is-fullwidth is-bordered is-striped results-table">
+            <thead>
+              <tr>
+                <th>Codec</th>
+                <th>Token Rate</th>
+                <th>Codebook Size</th>
+                <th>MTT AP ↑</th>
+                <th>Chords AUC ↑</th>
+                <th>Lyrics Acc ↑</th>
+                <th>Lyrics Score ↑</th>
+                <th>Top-1 ↑</th>
+                <th>Top-5 ↑</th>
+                <th>Top-10 ↑</th>
+                <th>PPL ↓</th>
+                <th>PESQ ↑</th>
+                <th>STOI ↑</th>
+                <th>Mel L1 ↓</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>XCodec-YuE</td>
+                <td>50</td>
+                <td>8×1024</td>
+                <td>0.347</td>
+                <td>0.884</td>
+                <td>0.348</td>
+                <td>0.352</td>
+                <td>0.498</td>
+                <td>0.783</td>
+                <td>0.882</td>
+                <td>6.884</td>
+                <td>1.642</td>
+                <td>0.617</td>
+                <td>1.905</td>
+              </tr>
+              <tr>
+                <td>MuCodec-LeVo</td>
+                <td>25</td>
+                <td>1×16385</td>
+                <td>0.294</td>
+                <td>0.865</td>
+                <td>0.264</td>
+                <td>0.387</td>
+                <td>0.391</td>
+                <td>0.577</td>
+                <td>0.662</td>
+                <td>1.575</td>
+                <td>1.167</td>
+                <td>0.375</td>
+                <td>1.419</td>
+              </tr>
+              <tr>
+                <td>MuSeC-S1A8</td>
+                <td>25</td>
+                <td>1×2048 + 8×1024</td>
+                <td>0.344</td>
+                <td>0.892</td>
+                <td>0.298</td>
+                <td>0.425</td>
+                <td>0.628</td>
+                <td>0.889</td>
+                <td>0.932</td>
+                <td>1.613</td>
+                <td>1.714</td>
+                <td>0.621</td>
+                <td>0.984</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>MuSeC-S1A16</td>
+                <td>25</td>
+                <td>1×2048 + 16×1024</td>
+                <td>0.346</td>
+                <td>0.894</td>
+                <td>0.365</td>
+                <td>0.490</td>
+                <td>0.651</td>
+                <td>0.905</td>
+                <td>0.955</td>
+                <td>1.694</td>
+                <td>2.201</td>
+                <td>0.683</td>
+                <td>0.883</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2 class="title is-4 mb-2">Ablation Results</h2>
+        <p class="content is-size-6 section-desc">
+          Impact of the semantic codebook and its interaction with the acoustic stream.
+        </p>
+      </div>
+
+      <div class="box results-box shadow-soft">
+        <div class="table-container">
+          <table class="table is-fullwidth is-bordered is-striped results-table">
+            <thead>
+              <tr>
+                <th>Codec</th>
+                <th>MTT AP ↑</th>
+                <th>Chords AUC ↑</th>
+                <th>Lyrics Acc ↑</th>
+                <th>Lyrics Score ↑</th>
+                <th>Top-1 ↑</th>
+                <th>Top-5 ↑</th>
+                <th>Top-10 ↑</th>
+                <th>PPL ↓</th>
+                <th>PESQ ↑</th>
+                <th>STOI ↑</th>
+                <th>Mel L1 ↓</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>LeVo BEST-RQ</td>
+                <td>0.345</td>
+                <td>0.891</td>
+                <td>0.171</td>
+                <td>0.499</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>MuSeC-S1A16</td>
+                <td>0.346</td>
+                <td>0.894</td>
+                <td>0.365</td>
+                <td>0.490</td>
+                <td>0.651</td>
+                <td>0.905</td>
+                <td>0.955</td>
+                <td>1.694</td>
+                <td>2.201</td>
+                <td>0.683</td>
+                <td>0.883</td>
+              </tr>
+              <tr>
+                <td>MuSeC-S0A16</td>
+                <td>0.292</td>
+                <td>0.854</td>
+                <td>0.358</td>
+                <td>0.443</td>
+                <td>0.532</td>
+                <td>0.807</td>
+                <td>0.882</td>
+                <td>5.771</td>
+                <td>1.540</td>
+                <td>0.616</td>
+                <td>1.178</td>
+              </tr>
+              <tr>
+                <td>MuSeC-A16</td>
+                <td>0.286</td>
+                <td>0.850</td>
+                <td>0.360</td>
+                <td>0.317</td>
+                <td>0.582</td>
+                <td>0.811</td>
+                <td>0.902</td>
+                <td>6.543</td>
+                <td>2.246</td>
+                <td>0.689</td>
+                <td>0.831</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Results (from paper Table 1) -->
   <section class="section pt-2">
     <div class="container is-max-desktop">
-      <h2 class="title is-4">Main Results (Paper)</h2>
-      <p class="content is-size-6">
-        Table 4: Summary of MuSeC vs baselines across semantic probing, LM friendliness, and reconstruction.
-      </p>
-
-      <div class="table-container">
-        <table class="table is-bordered is-narrow is-fullwidth results-table">
-          <thead>
-            <tr>
-              <th rowspan="2">Codec</th>
-              <th rowspan="2">Token Rate</th>
-              <th rowspan="2">Codebooks</th>
-              <th colspan="3">Semantic / Acoustic Content</th>
-              <th colspan="4">LM Friendliness</th>
-              <th colspan="3">Reconstruction</th>
-            </tr>
-            <tr>
-              <th>MTT AP ↑</th>
-              <th>Chords AUC ↑</th>
-              <th>Lyrics Score ↑</th>
-              <th>Top-1 ↑</th>
-              <th>Top-5 ↑</th>
-              <th>Top-10 ↑</th>
-              <th>PPL ↓</th>
-              <th>PESQ ↑</th>
-              <th>STOI ↑</th>
-              <th>Mel-L1 ↓</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>XCodec-YuE</td>
-              <td>50</td>
-              <td>8×1024</td>
-              <td>0.347</td>
-              <td>0.884</td>
-              <td>0.348</td>
-              <td>0.466</td>
-              <td>0.762</td>
-              <td>0.857</td>
-              <td>7.719</td>
-              <td>1.642</td>
-              <td>0.617</td>
-              <td>1.905</td>
-            </tr>
-            <tr>
-              <td>MuCodec-LeVo</td>
-              <td>25</td>
-              <td>1×16385</td>
-              <td>0.294</td>
-              <td>0.865</td>
-              <td>0.264</td>
-              <td>0.342</td>
-              <td>0.525</td>
-              <td>0.611</td>
-              <td>2.327</td>
-              <td>1.167</td>
-              <td>0.375</td>
-              <td>1.419</td>
-            </tr>
-            <tr class="is-selected">
-              <td><b>MuSeC</b></td>
-              <td><b>25</b></td>
-              <td><b>1×2048 + 16×1024</b></td>
-              <td><b>0.346</b></td>
-              <td><b>0.894</b></td>
-              <td><b>0.365</b></td>
-              <td><b>0.615</b></td>
-              <td><b>0.888</b></td>
-              <td><b>0.944</b></td>
-              <td><b>1.995</b></td>
-              <td><b>2.201</b></td>
-              <td><b>0.683</b></td>
-              <td><b>0.883</b></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- Citation -->
-  <section class="section pt-2">
-    <div class="container is-max-desktop">
-      <h2 class="title is-4">Citation</h2>
+      <h2 class="title is-4 section-title">Citation</h2>
       <pre class="bibtex"><code>@inproceedings{musec2026,
   title     = {Rethinking Music Tokenization: A Semantic Codec for High-Fidelity LLM Music Generation},
   author    = {Anonymous Authors},
@@ -307,13 +336,212 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer footer-musec">
     <div class="content has-text-centered is-size-7">
       <p>
-        This page is inspired by the layout of academic project pages like SAC’s demo site and the Academic Project Page Template.
+        This page is built for anonymous demo release. Audio controls are set to <code>preload="none"</code> to reduce initial loading overhead.
       </p>
     </div>
   </footer>
+
+  <script>
+    const samples = [
+      {
+        label: "short_01",
+        files: {
+          ground_truth: "assets/demos/ground_truth/65339_80_95.wav",
+          levo_codec: "assets/demos/levo_codec/65339_80_95.wav",
+          yue_codec: "assets/demos/yue_codec/65339_80_95.wav",
+          musec_s1a8: "assets/demos/musec_s1a8/65339_80_95.wav",
+          musec_s1a16: "assets/demos/musec_s1a16/65339_80_95.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/65339_80_95.wav",
+          musec_a16: "assets/demos/musec_a16/65339_80_95.wav"
+        }
+      },
+      {
+        label: "short_02",
+        files: {
+          ground_truth: "assets/demos/ground_truth/18214752_130_145.wav",
+          levo_codec: "assets/demos/levo_codec/18214752_130_145.wav",
+          yue_codec: "assets/demos/yue_codec/18214752_130_145.wav",
+          musec_s1a8: "assets/demos/musec_s1a8/18214752_130_145.wav",
+          musec_s1a16: "assets/demos/musec_s1a16/18214752_130_145.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/18214752_130_145.wav",
+          musec_a16: "assets/demos/musec_a16/18214752_130_145.wav"
+        }
+      },
+      {
+        label: "short_03",
+        files: {
+          ground_truth: "assets/demos/ground_truth/408814453_50_65.wav",
+          levo_codec: "assets/demos/levo_codec/408814453_50_65.wav",
+          yue_codec: "assets/demos/yue_codec/408814453_50_65.wav",
+          musec_s1a8: "assets/demos/musec_s1a8/408814453_50_65.wav",
+          musec_s1a16: "assets/demos/musec_s1a16/408814453_50_65.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/408814453_50_65.wav",
+          musec_a16: "assets/demos/musec_a16/408814453_50_65.wav"
+        }
+      },
+      {
+        label: "short_04",
+        files: {
+          ground_truth: "assets/demos/ground_truth/That's Us_30_45.wav",
+          levo_codec: "assets/demos/levo_codec/That's Us_30_45.wav",
+          yue_codec: "assets/demos/yue_codec/That's Us_30_45.wav",
+          musec_s1a8: "assets/demos/musec_s1a8/That's Us_30_45.wav",
+          musec_s1a16: "assets/demos/musec_s1a16/That's Us_30_45.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/That's Us_30_45.wav",
+          musec_a16: "assets/demos/musec_a16/That's Us_30_45.wav"
+        }
+      },
+      {
+        label: "short_05",
+        files: {
+          ground_truth: "assets/demos/ground_truth/すずめ_60_75.wav",
+          levo_codec: "assets/demos/levo_codec/すずめ_60_75.wav",
+          yue_codec: "assets/demos/yue_codec/すずめ_60_75.wav",
+          musec_s1a8: "assets/demos/musec_s1a8/すずめ_60_75.wav",
+          musec_s1a16: "assets/demos/musec_s1a16/すずめ_60_75.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/すずめ_60_75.wav",
+          musec_a16: "assets/demos/musec_a16/すずめ_60_75.wav"
+        }
+      },
+      {
+        label: "short_06",
+        files: {
+          ground_truth: "assets/demos/ground_truth/连名带姓_97_112.wav",
+          levo_codec: "assets/demos/levo_codec/连名带姓_97_112.wav",
+          yue_codec: "assets/demos/yue_codec/连名带姓_97_112.wav",
+          musec_s1a8: "assets/demos/musec_s1a8/连名带姓_97_112.wav",
+          musec_s1a16: "assets/demos/musec_s1a16/连名带姓_97_112.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/连名带姓_97_112.wav",
+          musec_a16: "assets/demos/musec_a16/连名带姓_97_112.wav"
+        }
+      },
+      {
+        label: "full_01",
+        files: {
+          ground_truth: "assets/demos/ground_truth/1.Glass Wings.mp3",
+          levo_codec: "assets/demos/levo_codec/1.Glass Wings.mp3",
+          yue_codec: "assets/demos/yue_codec/1.Glass Wings.mp3",
+          musec_s1a8: "assets/demos/musec_s1a8/1.Glass Wings.mp3",
+          musec_s1a16: "assets/demos/musec_s1a16/1.Glass Wings.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/1.Glass Wings.mp3",
+          musec_a16: "assets/demos/musec_a16/1.Glass Wings.mp3"
+        }
+      },
+      {
+        label: "full_02",
+        files: {
+          ground_truth: "assets/demos/ground_truth/7.反复登录梦境.mp3",
+          levo_codec: "assets/demos/levo_codec/7.反复登录梦境.mp3",
+          yue_codec: "assets/demos/yue_codec/7.反复登录梦境.mp3",
+          musec_s1a8: "assets/demos/musec_s1a8/7.反复登录梦境.mp3",
+          musec_s1a16: "assets/demos/musec_s1a16/7.反复登录梦境.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/7.反复登录梦境.mp3",
+          musec_a16: "assets/demos/musec_a16/7.反复登录梦境.mp3"
+        }
+      },
+      {
+        label: "full_03",
+        files: {
+          ground_truth: "assets/demos/ground_truth/8.तू ही सांवरिया.mp3",
+          levo_codec: "assets/demos/levo_codec/8.तू ही सांवरिया.mp3",
+          yue_codec: "assets/demos/yue_codec/8.तू ही सांवरिया.mp3",
+          musec_s1a8: "assets/demos/musec_s1a8/8.तू ही सांवरिया.mp3",
+          musec_s1a16: "assets/demos/musec_s1a16/8.तू ही सांवरिया.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/8.तू ही सांवरिया.mp3",
+          musec_a16: "assets/demos/musec_a16/8.तू ही सांवरिया.mp3"
+        }
+      },
+      {
+        label: "full_04",
+        files: {
+          ground_truth: "assets/demos/ground_truth/22.慢慢靠近.mp3",
+          levo_codec: "assets/demos/levo_codec/22.慢慢靠近.mp3",
+          yue_codec: "assets/demos/yue_codec/22.慢慢靠近.mp3",
+          musec_s1a8: "assets/demos/musec_s1a8/22.慢慢靠近.mp3",
+          musec_s1a16: "assets/demos/musec_s1a16/22.慢慢靠近.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/22.慢慢靠近.mp3",
+          musec_a16: "assets/demos/musec_a16/22.慢慢靠近.mp3"
+        }
+      },
+      {
+        label: "full_05",
+        files: {
+          ground_truth: "assets/demos/ground_truth/29.电量拉满.mp3",
+          levo_codec: "assets/demos/levo_codec/29.电量拉满.mp3",
+          yue_codec: "assets/demos/yue_codec/29.电量拉满.mp3",
+          musec_s1a8: "assets/demos/musec_s1a8/29.电量拉满.mp3",
+          musec_s1a16: "assets/demos/musec_s1a16/29.电量拉满.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/29.电量拉满.mp3",
+          musec_a16: "assets/demos/musec_a16/29.电量拉满.mp3"
+        }
+      },
+      {
+        label: "full_06",
+        files: {
+          ground_truth: "assets/demos/ground_truth/30.Under The Station Lights.mp3",
+          levo_codec: "assets/demos/levo_codec/30.Under The Station Lights.mp3",
+          yue_codec: "assets/demos/yue_codec/30.Under The Station Lights.mp3",
+          musec_s1a8: "assets/demos/musec_s1a8/30.Under The Station Lights.mp3",
+          musec_s1a16: "assets/demos/musec_s1a16/30.Under The Station Lights.mp3",
+          musec_s0a16: "assets/demos/musec_s0a16/30.Under The Station Lights.mp3",
+          musec_a16: "assets/demos/musec_a16/30.Under The Station Lights.mp3"
+        }
+      }
+    ];
+
+    const comparisonColumns = [
+      { key: "sample", label: "Sample ID" },
+      { key: "ground_truth", label: "Ground Truth" },
+      { key: "levo_codec", label: "MuCodec-LeVo" },
+      { key: "yue_codec", label: "XCodec-YuE" },
+      { key: "musec_s1a8", label: "MuSeC-S1A8" },
+      { key: "musec_s1a16", label: "MuSeC-S1A16" }
+    ];
+
+    const ablationColumns = [
+      { key: "sample", label: "Sample ID" },
+      { key: "ground_truth", label: "Ground Truth" },
+      { key: "musec_s1a16", label: "MuSeC-S1A16" },
+      { key: "musec_s0a16", label: "MuSeC-S0A16" },
+      { key: "musec_a16", label: "MuSeC-A16" }
+    ];
+
+    function audioCell(path) {
+      return `
+        <div class="audio-wrap">
+          <audio controls preload="none" src="${path}"></audio>
+        </div>
+      `;
+    }
+
+    function renderTable(tableId, columns) {
+      const table = document.getElementById(tableId);
+      const thead = table.querySelector("thead");
+      const tbody = table.querySelector("tbody");
+
+      thead.innerHTML = `
+        <tr>
+          ${columns.map(col => `<th>${col.label}</th>`).join("")}
+        </tr>
+      `;
+
+      tbody.innerHTML = samples.map(sample => {
+        const cells = columns.map(col => {
+          if (col.key === "sample") {
+            return `<td class="sample-name">${sample.label}</td>`;
+          }
+          return `<td>${audioCell(sample.files[col.key])}</td>`;
+        }).join("");
+
+        return `<tr>${cells}</tr>`;
+      }).join("");
+    }
+
+    renderTable("comparison-table", comparisonColumns);
+    renderTable("ablation-table", ablationColumns);
+  </script>
 </body>
 </html>

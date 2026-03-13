@@ -1,67 +1,311 @@
-/* style.css */
-:root{
-    --maxw: 980px;
+:root {
+  --bg: #f6f8fc;
+  --paper: #ffffff;
+  --text: #1e2430;
+  --muted: #5f6b7a;
+  --line: #e6eaf2;
+  --accent: #4b63d1;
+  --accent-soft: #eef2ff;
+  --shadow: 0 18px 48px rgba(20, 28, 45, 0.08);
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.hero-musec {
+  background:
+    radial-gradient(circle at top left, rgba(75, 99, 209, 0.10), transparent 30%),
+    radial-gradient(circle at top right, rgba(29, 191, 151, 0.08), transparent 28%),
+    #ffffff;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.paper-title {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+
+.subtitle-musec {
+  max-width: 900px;
+  margin: 1rem auto 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.author-block {
+  font-weight: 600;
+}
+
+.project-links {
+  gap: 0.5rem;
+}
+
+.is-disabled {
+  pointer-events: none;
+  opacity: 0.9;
+  border: 1px solid var(--line);
+}
+
+.coming-soon {
+  margin-left: 0.55rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  background: #fff3cd;
+  color: #8a6300;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow);
+}
+
+.figure-box,
+.info-box,
+.demo-box,
+.results-box,
+.note-box {
+  border: 1px solid rgba(230, 234, 242, 0.9);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.figure-box {
+  padding: 1.4rem;
+}
+
+.figure-box img {
+  border-radius: 18px;
+}
+
+.caption {
+  color: var(--muted);
+  font-size: 0.97rem;
+  line-height: 1.7;
+}
+
+.section-title {
+  letter-spacing: -0.01em;
+}
+
+.section-header {
+  margin-bottom: 1rem;
+}
+
+.section-label {
+  margin-bottom: 0.35rem;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-desc {
+  color: var(--muted);
+  max-width: 960px;
+}
+
+.abstract p {
+  color: #2c3443;
+  line-height: 1.8;
+}
+
+.note-box {
+  padding: 1rem 1.15rem;
+}
+
+.note-box p {
+  margin: 0;
+  color: #334056;
+  line-height: 1.7;
+}
+
+.inline-tag {
+  display: inline-block;
+  margin-left: 0.35rem;
+  margin-right: 0.15rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.demo-table,
+.results-table {
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.demo-table thead th,
+.results-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f8faff;
+  color: #22304a;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.demo-table th,
+.demo-table td,
+.results-table th,
+.results-table td {
+  padding: 0.95rem 0.9rem;
+  vertical-align: middle;
+  border-color: var(--line);
+}
+
+.demo-table tbody tr:hover,
+.results-table tbody tr:hover {
+  background: #fbfcff;
+}
+
+.demo-table th:first-child,
+.demo-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #ffffff;
+}
+
+.demo-table thead th:first-child {
+  z-index: 3;
+  background: #f8faff;
+}
+
+.sample-name {
+  min-width: 120px;
+  font-weight: 700;
+  color: #1f2940;
+}
+
+.audio-wrap {
+  min-width: 210px;
+}
+
+.audio-wrap audio {
+  width: 210px;
+  height: 40px;
+}
+
+.results-box {
+  overflow: hidden;
+}
+
+.results-table {
+  font-size: 0.9rem;
+}
+
+.results-table td:first-child,
+.results-table th:first-child {
+  position: sticky;
+  left: 0;
+  background: #ffffff;
+  z-index: 1;
+}
+
+.results-table thead th:first-child {
+  background: #f8faff;
+  z-index: 2;
+}
+
+.row-highlight td {
+  background: rgba(75, 99, 209, 0.06);
+  font-weight: 700;
+}
+
+.row-highlight td:first-child {
+  background: rgba(75, 99, 209, 0.10);
+}
+
+.bibtex {
+  padding: 1.2rem 1.35rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: #0f1729;
+  color: #e9eefc;
+  overflow-x: auto;
+}
+
+.footer-musec {
+  background: transparent;
+  color: var(--muted);
+}
+
+code {
+  background: rgba(255, 255, 255, 0.12);
+  color: inherit;
+}
+
+@media screen and (max-width: 1024px) {
+  .demo-table th:first-child,
+  .demo-table td:first-child,
+  .results-table th:first-child,
+  .results-table td:first-child {
+    position: static;
   }
-  
-  body{
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+}
+
+@media screen and (max-width: 768px) {
+  .paper-title {
+    font-size: 2rem !important;
   }
-  
-  .container.is-max-desktop{
-    max-width: var(--maxw) !important;
+
+  .subtitle-musec {
+    font-size: 1rem !important;
   }
-  
-  .paper-title{
-    letter-spacing: -0.3px;
-    line-height: 1.15;
+
+  .figure-box,
+  .info-box,
+  .demo-box,
+  .results-box,
+  .note-box {
+    border-radius: 18px;
   }
-  
-  .figure-box{
-    border-radius: 14px;
+
+  .audio-wrap,
+  .audio-wrap audio {
+    min-width: 170px;
+    width: 170px;
   }
-  
-  .caption{
-    color: #444;
-    font-size: 0.95rem;
+
+  .sample-name {
+    min-width: 110px;
   }
-  
-  .abstract{
-    font-size: 1.02rem;
-    color: #222;
+
+  .inline-tag {
+    display: inline-block;
+    margin-top: 0.25rem;
+    margin-left: 0;
   }
-  
-  .demo-table audio{
-    width: 220px;   /* 关键：别太宽，不然会把表格撑爆 */
-    max-width: 100%;
-    height: 34px;
-  }
-  
-  .table-container{
-    overflow-x: auto;
-  }
-  
-  .results-table{
-    font-size: 0.90rem;
-  }
-  
-  .results-table thead th{
-    white-space: nowrap;
-  }
-  
-  .results-table tbody td{
-    white-space: nowrap;
-  }
-  
-  .bibtex{
-    background: #0f172a;
-    color: #e2e8f0;
-    border-radius: 12px;
-    padding: 14px 16px;
-    overflow-x: auto;
-  }
-  
-  /* 小屏幕更紧凑 */
-  @media (max-width: 768px){
-    .demo-table audio{ width: 170px; }
-    .results-table{ font-size: 0.82rem; }
-  }
+}

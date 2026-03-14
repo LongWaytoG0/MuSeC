@@ -184,6 +184,9 @@ body {
   color: #30394a;
   line-height: 1.82;
   margin-bottom: 1rem;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 
 .note-box {
@@ -289,12 +292,21 @@ body {
 .explanation-block {
   margin-top: 1.35rem;
   padding-top: 0.55rem;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 
 .explanation-block p {
   margin-bottom: 0.9rem;
   line-height: 1.8;
   color: #3f4652;
+}
+
+.justify-text {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 
 .bibtex {

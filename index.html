@@ -63,18 +63,14 @@
             <h2 class="title is-4 section-title">Abstract</h2>
             <div class="content abstract">
               <p>
-                Discrete audio tokenization is the critical interface between raw waveforms and autoregressive modeling in modern music generation,
-                but music tokenizers must simultaneously preserve <b>high-fidelity reconstruction</b> and produce discrete sequences that remain
-                <b>amenable to language modeling</b>.
-              </p>
-              <p>
-                MuSeC addresses this trade-off by explicitly disentangling <b>music semantic content</b> and <b>music acoustic content</b> within mixed
-                music signals, without source separation. A frozen SSL encoder with k-means supplies semantic tokens, while an acoustic RVQ stream
-                captures residual detail for faithful reconstruction.
-              </p>
-              <p>
-                Empirically, MuSeC achieves stronger overall balance across content preservation, LM friendliness, and reconstruction quality,
-                providing a practical foundation for high-fidelity LLM music generation.
+                Discrete audio tokenization has become the critical interface between raw waveforms and autoregressive modeling in recent music generation. 
+                As a result, music tokenizers must simultaneously support high-fidelity reconstruction and produce discrete sequences that remain amenable to language modeling. 
+                Existing reconstruction-oriented tokenizers often mix musical structure with fine acoustic details, producing high-entropy tokens that are hard to model. 
+                In contrast, semantics-guided alternatives are designed for speech and do not fit music well, often hurting reconstruction quality. 
+                We address these trade-offs by rethinking music tokenization around a measurable notion of music semantic content grounded in downstream Music Information Retrieval tasks.
+                Guided by this definition, we propose <b>MuSeC</b>, a music semantic codec that disentangles semantic and acoustic content directly from mixed signals without source separation. 
+                MuSeC preserves information required for high-fidelity reconstruction while producing more LM-friendly discrete units. 
+                Empirically, it improves reconstruction quality and significantly reduces language-model perplexity, providing a practical foundation for high-fidelity LLM music generation.
               </p>
             </div>
           </div>
@@ -338,7 +334,7 @@
         <figure class="image">
           <img src="assets/figs/musec_self_ablation.png" alt="Semantic and acoustic metric comparison in MuSeC ablation study">
         </figure>
-        <p class="caption mt-4">
+        <p class="caption mt-4 justify-text">
           <b>Visualization of the ablation behavior.</b>
           Compared with the original continuous LeVo BEST-RQ representation, the k-means quantized semantic representation alone
           loses substantial acoustic information, most clearly on <b>Chords</b>. Once acoustic codebooks are introduced, this missing

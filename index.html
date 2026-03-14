@@ -380,7 +380,7 @@
   <footer class="footer footer-musec">
     <div class="content has-text-centered is-size-7">
       <p>
-        This page is built for anonymous demo release. Audio files use <code>preload="none"</code> to reduce initial loading overhead.
+        This page is built for anonymous demo release.
       </p>
     </div>
   </footer>
@@ -553,7 +553,7 @@
     function audioCell(path) {
       return `
         <div class="audio-wrap">
-          <audio controls preload="none" src="${path}"></audio>
+          <audio controls preload="auto" src="${path}"></audio>
         </div>
       `;
     }

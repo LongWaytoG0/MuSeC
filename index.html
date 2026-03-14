@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +48,7 @@
           <img src="assets/figs/musec_model.png" alt="MuSeC Architecture">
         </figure>
         <p class="caption mt-4">
-          <b>Figure 2.</b> Overview of MuSeC. A frozen SSL encoder + k-means provides semantic tokens; an acoustic RVQ stream captures
+          Overview of MuSeC. A frozen SSL encoder + k-means provides semantic tokens; an acoustic RVQ stream captures
           fine-grained acoustics. The two streams are concatenated and decoded for high-fidelity reconstruction.
         </p>
       </div>
@@ -136,10 +137,10 @@
   <section class="section pt-2">
     <div class="container is-max-desktop">
       <div class="section-header">
-        <p class="section-label">Results from the Paper</p>
-        <h2 class="title is-4 mb-2">Main Evaluation Results</h2>
+        <p class="section-label">Results and Analysis</p>
+        <h2 class="title is-4 mb-2">Main Evaluation and Ablation Results</h2>
         <p class="content is-size-6 section-desc">
-          Summary across content preservation, LM friendliness, and reconstruction quality.
+          Summary across content preservation, LM friendliness, reconstruction quality, and the factorized behavior of semantic and acoustic metrics.
         </p>
       </div>
 
@@ -237,11 +238,13 @@
       <div class="section-header">
         <h2 class="title is-4 mb-2">Ablation Results</h2>
         <p class="content is-size-6 section-desc">
-          Impact of the semantic codebook and its interaction with the acoustic stream.
+          Quantitative ablation of the semantic stream and acoustic codebooks. The table highlights the effect of removing semantic
+          tokens or removing the semantic branch entirely, while the figure below visualizes how semantic-content and acoustic-content
+          metrics respond differently.
         </p>
       </div>
 
-      <div class="box results-box shadow-soft">
+      <div class="box results-box shadow-soft mb-5">
         <div class="table-container">
           <table class="table is-fullwidth is-bordered is-striped results-table">
             <thead>
@@ -321,6 +324,48 @@
           </table>
         </div>
       </div>
+
+      <div class="section-header mt-6">
+        <h2 class="title is-4 mb-2">Semantic–Acoustic Factorization Visualization</h2>
+        <p class="content is-size-6 section-desc">
+          This figure complements the ablation table by showing how the semantic-only representation and the added acoustic codebooks
+          behave across different metric groups. The semantic metrics remain relatively stable after adding acoustic codebooks,
+          while the acoustic metrics are recovered much more substantially.
+        </p>
+      </div>
+
+      <div class="box figure-box shadow-soft">
+        <figure class="image">
+          <img src="assets/figs/musec_self_ablation.png" alt="Semantic and acoustic metric comparison in MuSeC ablation study">
+        </figure>
+        <p class="caption mt-4">
+          <b>Visualization of the ablation behavior.</b>
+          Compared with the original continuous LeVo BEST-RQ representation, the k-means quantized semantic representation alone
+          loses substantial acoustic information, most clearly on <b>Chords</b>. Once acoustic codebooks are introduced, this missing
+          acoustic content is largely recovered, while semantic-content metrics such as <b>MTT</b>, <b>EMO</b>, and <b>Genre</b>
+          change only slightly. <b>Key</b> and <b>Beat</b> also improve, though less dramatically than Chords, suggesting that MuSeC's
+          two-stream design separates distinct semantic and acoustic factors effectively.
+        </p>
+
+        <div class="content explanation-block">
+          <p>
+            <span class="inline-tag">Music semantic content</span>
+            MTT, EMO, and Genre stay comparatively stable when acoustic codebooks are added, indicating that the semantic branch
+            already captures the task-relevant high-level musical content.
+          </p>
+          <p>
+            <span class="inline-tag">Music acoustic content</span>
+            Chords, Key, Beat, and DownBeat benefit much more from introducing acoustic codebooks, showing that the quantized
+            semantic representation alone does not preserve enough low-level acoustic detail.
+          </p>
+          <p>
+            <span class="inline-tag">Most representative case</span>
+            Chord performance is the clearest example: it drops strongly in the semantic-only setting and is substantially recovered
+            after adding acoustic codebooks, supporting our definition of chord-related accompaniment structure as strongly tied to
+            music acoustic content.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -339,7 +384,7 @@
   <footer class="footer footer-musec">
     <div class="content has-text-centered is-size-7">
       <p>
-        This page is built for anonymous demo release. Audio controls are set to <code>preload="none"</code> to reduce initial loading overhead.
+        This page is built for anonymous demo release. Audio files use <code>preload="none"</code> to reduce initial loading overhead.
       </p>
     </div>
   </footer>
